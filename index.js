@@ -67,26 +67,27 @@ const signedPaymasterData = await paymasterClient.getPaymasterData({
   entryPointAddress: v06EntrypointAddress,
   ...userOperation,
 });
-
 // Sign and send the user operation
 try {
-  //console.log("🔍account", account);
-  userOperation.signature = await account.signUserOperation(userOperation);
+  //console.log("🔍 signedData", signedPaymasterData);
+  userOperation.signature = signedPaymasterData.signature;
+  console.log("User Operations:",userOperation);
+  
   const userOpHash = await bundlerClient.sendUserOperation({
     ...userOperation,
   });
 //0x30eE618Ab4B8c020f2145AE4E1EbFC485C3b69F2
-  console.log("🔍 User operation hash:here ", userOpHash);
+ // console.log("🔍 User operation hash:here ", userOpHash);
 
   const receipt = await bundlerClient.waitForUserOperationReceipt({
     hash: userOpHash,
   });
 
-  console.log("✅ Transaction successfully sponsored!");
-  console.log(
-    `⛽ View sponsored userOp on blockscout: https://base-sepolia.blockscout.com/op/${receipt.userOpHash}`,
-    `🔍 View NFT mint on basescan: https://sepolia.basescan.org/address/0x66519FCAee1Ed65bc9e0aCc25cCD900668D3eD49#events`
-  );
+  // console.log("✅ Transaction successfully sponsored!");
+  // console.log(
+  //   `⛽ View sponsored userOp on blockscout: https://base-sepolia.blockscout.com/op/${receipt.userOpHash}`,
+  //   `🔍 View NFT mint on basescan: https://sepolia.basescan.org/address/0x66519FCAee1Ed65bc9e0aCc25cCD900668D3eD49#events`
+  // );
   process.exit()
 } catch (error) {
   console.log("Error sending transaction: ", error);

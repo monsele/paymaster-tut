@@ -11,7 +11,9 @@ export const client = createPublicClient({
   transport: http(RPC_URL),
 })
  
-const owner = privateKeyToAccount('0x6afe757f5cd5c79734d9a91753ed8530eb1c0e3827e56616ad7af9e0448bc46d')
+const owner = privateKeyToAccount(
+  "0x1912fcd607821c9e4b5c479e270836dac549d340ceaf554f9067bf61f949f97d"
+);
  
 export const account = await toCoinbaseSmartAccount({ 
   client, 
